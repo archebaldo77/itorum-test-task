@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve"
+    "start": "webpack serve --env mode=development",
+    "build": "webpack --env mode=production"
   },
   "keywords": [
     "react",
@@ -15,6 +16,7 @@
   "license": "ISC",
   "description": "Andrey Zakharov",
   "devDependencies": {
+    "@types/dotenv-webpack": "7.0.7",
     "@types/node": "20.14.12",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
@@ -22,6 +24,7 @@
     "@types/webpack": "5.28.5",
     "@types/webpack-dev-server": "4.7.2",
     "css-loader": "7.1.2",
+    "dotenv-webpack": "8.1.0",
     "html-webpack-plugin": "5.6.0",
     "sass": "1.77.8",
     "sass-loader": "16.0.0",
@@ -35,6 +38,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "2.2.7",
+    "octokit": "4.0.2",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-redux": "9.1.2",
