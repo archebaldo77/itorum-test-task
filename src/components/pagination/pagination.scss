@@ -1,0 +1,27 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+  column-gap: 50px;
+
+  &__button {
+    cursor: pointer;
+    width: 80px;
+    height: 40px;
+    font-size: 16px;
+    font-weight: 700;
+    color: whitesmoke;
+    background-color: rgb(47, 47, 241);
+    border: none;
+
+    &:hover {
+      background-color: rgb(4, 4, 212);
+    }
+
+    &[disabled] {
+      cursor: auto;
+      background-color: rgba(47, 47, 241, 0.3);
+    }
+  }
+}
