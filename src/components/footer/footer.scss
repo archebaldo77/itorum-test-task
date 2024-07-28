@@ -1,0 +1,27 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: var(--footer-height);
+  margin-top: auto;
+  padding: 20px 50px;
+  border-top: 2px solid rgb(190, 189, 189);
+
+  &__logo {
+    text-decoration: none;
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 700;
+    color: black;
+
+    &:hover {
+      color: rgba($color: #000000, $alpha: 0.6);
+    }
+  }
+
+  &__copyright {
+    font-size: 14px;
+    color: rgba($color: #000000, $alpha: 0.6);
+  }
+}
