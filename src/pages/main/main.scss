@@ -1,0 +1,7 @@
+.main-page {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 50px;
+  height: calc(100vh - var(--header-height) - var(--footer-height));
+  overflow-y: scroll;
+}
