@@ -49,6 +49,10 @@ const createApi = () => {
 
         return { totalCount: data.total_count, users };
       } catch (error) {
+        if (error instanceof Error) {
+          throw Error(error.message);
+        }
+
         throw Error(`Something went wrong!`);
       }
     },
@@ -67,6 +71,10 @@ const createApi = () => {
 
         return adapter.transformUser(data);
       } catch (error) {
+        if (error instanceof Error) {
+          throw Error(error.message);
+        }
+
         throw Error(`Something went wrong!`);
       }
     },
@@ -87,6 +95,10 @@ const createApi = () => {
 
         return adapter.transformRepositories(data);
       } catch (error) {
+        if (error instanceof Error) {
+          throw Error(error.message);
+        }
+
         throw Error(`Something went wrong!`);
       }
     },

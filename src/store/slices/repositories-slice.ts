@@ -18,10 +18,14 @@ export const getRepositories = createAsyncThunk<
   }
 >(`@@repositories`, async (login, { rejectWithValue, extra: api }) => {
   try {
-    const data = api.getRepositoriesByLogin(login);
+    const data = await api.getRepositoriesByLogin(login);
 
     return data;
   } catch (error) {
+    if (error instanceof Error) {
+      return rejectWithValue(error.message);
+    }
+
     return rejectWithValue(`Something went wrong!`);
   }
 });

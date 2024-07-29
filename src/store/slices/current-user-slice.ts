@@ -22,6 +22,10 @@ export const getCurrentUser = createAsyncThunk<
 
     return data;
   } catch (error) {
+    if (error instanceof Error) {
+      return rejectWithValue(error.message);
+    }
+
     return rejectWithValue(`Something went wrong!`);
   }
 });
