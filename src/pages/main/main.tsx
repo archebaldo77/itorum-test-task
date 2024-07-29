@@ -50,7 +50,9 @@ export const Main = () => {
       {users.length > 0
         ? loading === LoadingState.IDLE && <ProfileList users={users} />
         : loading === LoadingState.IDLE && <ProfileListEmpty />}
-      {maxPages > 1 && users.length > 0 && <Pagination maxPages={maxPages} />}
+      {maxPages > 1 && users.length > 0 && loading === LoadingState.IDLE && (
+        <Pagination maxPages={maxPages} />
+      )}
     </main>
   );
 };
