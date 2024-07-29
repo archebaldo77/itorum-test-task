@@ -4,6 +4,7 @@ import path from 'path';
 // plugins;
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import DotEnv from 'dotenv-webpack';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 // types;
 import { type Configuration } from 'webpack';
@@ -17,8 +18,6 @@ const Path = {
   HTML: `${path.resolve(__dirname, `public`, `index.html`)}`,
 };
 
-const PORT = Number(process.env.PORT) || 3000;
-
 const createDevServer = (port: number): DevServerConfiguration => {
   return {
     port,
@@ -27,39 +26,55 @@ const createDevServer = (port: number): DevServerConfiguration => {
   };
 };
 
-// config;
-const config: Configuration = {
-  mode: `development`,
-  entry: Path.ENTRY,
-  output: {
-    filename: `bundle.js`,
-    path: Path.DIST,
-    publicPath: Path.PUBLIC_PATH,
-  },
-  devtool: `inline-source-map`,
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: Path.HTML,
-    }),
-    new DotEnv(),
-  ],
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        use: `ts-loader`,
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.s[ac]ss$/i,
-        use: [`style-loader`, `css-loader`, `sass-loader`],
-      },
-    ],
-  },
-  resolve: {
-    extensions: [`.tsx`, `.ts`, `.js`],
-  },
-  devServer: createDevServer(PORT),
-};
+interface EnvType {
+  mode: `development` | `production`;
+  port: number;
+}
 
-export default config;
+// config;
+export default (env: EnvType): Configuration => {
+  const { mode = `development`, port = 3000 } = env;
+
+  return {
+    mode,
+    entry: Path.ENTRY,
+    output: {
+      filename: `bundle.js`,
+      path: Path.DIST,
+      publicPath: Path.PUBLIC_PATH,
+    },
+    devtool: `inline-source-map`,
+    plugins: [
+      new HtmlWebpackPlugin({
+        template: Path.HTML,
+      }),
+      new DotEnv(),
+      new MiniCssExtractPlugin({
+        filename: `css/style.css`,
+      }),
+    ],
+    module: {
+      rules: [
+        {
+          test: /\.tsx?$/,
+          use: `ts-loader`,
+          exclude: /node_modules/,
+        },
+        {
+          test: /\.s[ac]ss$/i,
+          use: [
+            mode === `development`
+              ? `style-loader`
+              : MiniCssExtractPlugin.loader,
+            `css-loader`,
+            `sass-loader`,
+          ],
+        },
+      ],
+    },
+    resolve: {
+      extensions: [`.tsx`, `.ts`, `.js`],
+    },
+    devServer: createDevServer(port),
+  };
+};
